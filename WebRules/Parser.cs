@@ -26,7 +26,9 @@ namespace WebRules
                     jsonconfiguration = reader.ReadToEnd();
                 }
                 Rule r = JsonConvert.DeserializeObject<Rule>(jsonconfiguration);
+                dynamic c = JsonConvert.DeserializeObject(jsonconfiguration);
                 r.rules.ToArray();
+                c.rules.ToArray();
                
                
             }
