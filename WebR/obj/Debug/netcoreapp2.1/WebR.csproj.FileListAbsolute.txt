@@ -1,0 +1,14 @@
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\bin\Debug\netcoreapp2.1\WebR.deps.json
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\bin\Debug\netcoreapp2.1\WebR.runtimeconfig.json
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\bin\Debug\netcoreapp2.1\WebR.runtimeconfig.dev.json
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\bin\Debug\netcoreapp2.1\WebR.dll
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\bin\Debug\netcoreapp2.1\WebR.pdb
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\obj\Debug\netcoreapp2.1\WebR.csprojAssemblyReference.cache
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\obj\Debug\netcoreapp2.1\WebR.csproj.CoreCompileInputs.cache
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\obj\Debug\netcoreapp2.1\WebR.RazorAssemblyInfo.cache
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\obj\Debug\netcoreapp2.1\WebR.RazorAssemblyInfo.cs
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\obj\Debug\netcoreapp2.1\WebR.AssemblyInfoInputs.cache
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\obj\Debug\netcoreapp2.1\WebR.AssemblyInfo.cs
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\obj\Debug\netcoreapp2.1\WebR.RazorTargetAssemblyInfo.cache
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\obj\Debug\netcoreapp2.1\WebR.dll
+D:\LearnGleb\ASP.NET\ServiceTick\WebRules\WebR\obj\Debug\netcoreapp2.1\WebR.pdb

@@ -1,0 +1,42 @@
+{
+  "rules": [
+    {
+      "Operator": "and",
+      "Conditions": [
+        {
+          "Key": "categories",
+          "Condition": "inArray",
+          "Val": 2
+        },
+        {
+          "Key": "stage",
+          "Condition": "equal",
+          "Val": "planning"
+        },
+        {
+          "Key": "created_at",
+          "Condition": "lessThan",
+          "Val": 1549459560
+        }
+      ],
+      "Effects": [
+        {
+          "Type": "telegram",
+          "Template_id": 1,
+          "Placeholders": {
+            "Id": "id",
+            "Name": "name"
+          }
+        },
+        {
+          "Type": "smtp",
+          "Template_id": 2,
+          "Placeholders": {
+            "Name": "name",
+            "Description": "description"
+          }
+        }
+      ]
+    }
+  ]
+}
