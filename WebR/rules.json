@@ -1,39 +1,39 @@
 {
   "rules": [
     {
-      "Operator": "and",
-      "Conditions": [
+      "operator": "and",
+      "conditions": [
         {
-          "Key": "categories",
-          "Condition": "inArray",
-          "Val": 2
+          "key": "categories",
+          "condition": "inArray",
+          "val": 2
         },
         {
-          "Key": "stage",
-          "Condition": "equal",
-          "Val": "planning"
+          "key": "stage",
+          "condition": "equal",
+          "val": "planning"
         },
         {
-          "Key": "created_at",
-          "Condition": "lessThan",
-          "Val": 1549459560
+          "key": "created_at",
+          "condition": "lessThan",
+          "val": 1549459560
         }
       ],
-      "Effects": [
+      "effects": [
         {
-          "Type": "telegram",
-          "Template_id": 1,
-          "Placeholders": {
-            "Id": "id",
-            "Name": "name"
+          "type": "telegram",
+          "template_id": 1,
+          "placeholders": {
+            "id": "id",
+            "name": "name"
           }
         },
         {
-          "Type": "smtp",
-          "Template_id": 2,
-          "Placeholders": {
-            "Name": "name",
-            "Description": "description"
+          "type": "smtp",
+          "template_id": 2,
+          "placeholders": {
+            "name": "name",
+            "description": "description"
           }
         }
       ]

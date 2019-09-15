@@ -10,14 +10,14 @@ namespace WebR
 {
     public class Parser
     {
-        public Parser()
-        {
-            string _result = result;
-        }
+        //public Parser()
+        //{
+        //    object _result = r;
+        //}
         private readonly string jsonpath = "rules.json";
         //private readonly string jsonpath = "test.json";
         public string result;
-        public void LoadRules()
+        public Object LoadRules()
         {
             try
             {
@@ -26,7 +26,7 @@ namespace WebR
                 {
                     jsonconfiguration = reader.ReadToEnd();
                 }
-                Rule r = JsonConvert.DeserializeObject<Rule>(jsonconfiguration);
+                Rules r = JsonConvert.DeserializeObject<Rules>(jsonconfiguration);
                 //Test r = JsonConvert.DeserializeObject<Test>(jsonconfiguration);
                 //dynamic c = JsonConvert.DeserializeObject(jsonconfiguration);
                 dynamic c = JsonConvert.DeserializeObject(jsonconfiguration);
@@ -35,15 +35,19 @@ namespace WebR
                 r.rules.ToArray();
 
                 r.ToString();
-                
-               
-               
+                return r;
+
+
+
+
+
             }
             catch (Exception ex)
             {
+                return false;
 
             }
-            
+
 
         }
 

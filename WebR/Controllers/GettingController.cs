@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WebR.Models.Body;
+using WebR.Models.Rules;
 using WebRules;
 
 namespace WebR.Controllers
@@ -14,13 +17,41 @@ namespace WebR.Controllers
     [ApiController]
     public class GettingController : ControllerBase
     {
+        private readonly string jsonpath = "rules.json";
+
+        public Object LoadRules()
+        {
+
+            try
+            {
+                string jsonconfiguration;
+                using (var reader = new StreamReader(jsonpath))
+                {
+                    jsonconfiguration = reader.ReadToEnd();
+                }
+                Rules r = JsonConvert.DeserializeObject<Rules>(jsonconfiguration);
+                return r;
+
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+
+            }
+            
+
+
+        }
         // GET: api/Getting
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<object> Get()
         {
-            Parser p = new Parser();
-            p.LoadRules();
-            return new string[] { "value1", "value2" };
+            object b = LoadRules();
+            
+            
+            
+            return new object[] { b };
         }
 
         // GET: api/Getting/5
@@ -49,5 +80,6 @@ namespace WebR.Controllers
         public void Delete(int id)
         {
         }
+       
     }
 }
