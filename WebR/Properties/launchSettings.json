@@ -4,15 +4,15 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:20553",
-      "sslPort": 44351
+      "applicationUrl": "http://localhost:20553"
+      //"sslPort": 44351
     }
   },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/getting",
+      "launchUrl": "default",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "WebR": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/getting",
+      "launchUrl": "default",
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
