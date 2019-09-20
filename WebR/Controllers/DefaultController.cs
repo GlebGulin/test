@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net.Mime;
 using WebR.Models.Rules;
+//using System.Net.Mail.SmtpClient;
 
 namespace WebR.Controllers
 {
     [Route("[controller]")]
     public class DefaultController : Controller
     {
+        private SmtpClient smtpClient;
+        public DefaultController(SmtpClient smtpClient)
+        {
+            this.smtpClient = smtpClient;
+        }
         private readonly string jsonpath = "rules.json";
 
         public Object LoadRules()
@@ -48,44 +58,61 @@ namespace WebR.Controllers
         public JObject Post([FromBody] JObject data)
 
         {
-//           
-
             Parser parsrul = new Parser();
             object resultrul = parsrul.LoadRules();
             string jsonstring = data.ToString();
             dynamic result = data;
-            
-                foreach (dynamic Proj in result.projects)
-                {
+            foreach (dynamic Proj in result.projects)
+            {
                     object nameproject = Proj.name;
+                    object descriptproj = Proj.description;
                     string sendname = nameproject.ToString();
-                    foreach (dynamic Descr in result.projects)
-                    {
-                        object descriptproj = Descr.description;
-                        string senddescriprion = descriptproj.ToString();
-                        
-                    //return Configuration.MailTo;
-                    }
+                    string senddescriprion = descriptproj.ToString();
+                PostSend(sendname, senddescriprion);
+                //return data;
 
-
-                }
-            //}
-            //else
-            //{
-            //    result.projects = "";
-            //    //result.projects.description = "";
-            //}
-
-            //JArray jsonVal = JArray.Parse(jsonstring) as JArray;
-            //dynamic result = jsonVal;
-            //foreach (dynamic res in result )
-            //{
-            //    return Ok(res);
-            //}
-
-            //return Ok(data);
+            }
             return data;
-
         }
-}
+
+        //public async Task<IActionResult> PostSend(string sub, string bod)
+        //{
+        //    await this.smtpClient.SendMailAsync(new MailMessage(
+        //        from: "glepsgulin@gmail.com",
+        //        to: "hannah.petrova@gmail.com",
+        //        subject: sub,
+        //        body: bod
+        //        ));
+
+        //    return Ok("OK");
+
+        //}
+        public void PostSend(string sub, string bod)
+        {
+            MailAddress to = new MailAddress("hannah.petrova@gmail.com");
+            
+            MailAddress from = new MailAddress("glepsgulin@gmail.com");
+            MailMessage mail = new MailMessage(from, to);
+            
+            mail.Subject = sub;
+            mail.Body = bod;
+            
+            SmtpClient client = new SmtpClient();
+            client.Host = "smtp.gmail.com";
+            client.Credentials = new NetworkCredential(from.ToString(), "password");
+            client.Host = "smtp.gmail.com";
+            client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+            client.Port = 25;
+            client.EnableSsl = true;
+            client.Send(mail);
+            //return Ok(mail);
+        }
+
+        //protected override void Dispose(bool disposing)
+        //{
+        //    this.smtpClient.Dispose();
+        //    base.Dispose(disposing);
+        //}
+    }
+   
 }
