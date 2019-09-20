@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Mime;
 using WebR.Models.Rules;
+using WebR.Sender;
 //using System.Net.Mail.SmtpClient;
 
 namespace WebR.Controllers
@@ -55,7 +56,7 @@ namespace WebR.Controllers
         }
         //[Route("post")]
         [HttpPost]
-        public JObject Post([FromBody] JObject data)
+        public async Task Post([FromBody] JObject data)
 
         {
             Parser parsrul = new Parser();
@@ -68,11 +69,13 @@ namespace WebR.Controllers
                     object descriptproj = Proj.description;
                     string sendname = nameproject.ToString();
                     string senddescriprion = descriptproj.ToString();
-                PostSend(sendname, senddescriprion);
+                //PostSend(sendname, senddescriprion);
+                MailerOne mailer = new MailerOne();
+                await mailer.SendEmailAsync(sendname, senddescriprion);
                 //return data;
 
             }
-            return data;
+            //return data;
         }
 
         //public async Task<IActionResult> PostSend(string sub, string bod)
@@ -87,26 +90,25 @@ namespace WebR.Controllers
         //    return Ok("OK");
 
         //}
-        public void PostSend(string sub, string bod)
-        {
-            MailAddress to = new MailAddress("hannah.petrova@gmail.com");
+        //public void PostSend(string sub, string bod)
+        //{
+        //    MailAddress to = new MailAddress("hannah.petrova@gmail.com");
             
-            MailAddress from = new MailAddress("glepsgulin@gmail.com");
-            MailMessage mail = new MailMessage(from, to);
+        //    MailAddress from = new MailAddress("glepsgulin@gmail.com");
+        //    MailMessage mail = new MailMessage(from, to);
             
-            mail.Subject = sub;
-            mail.Body = bod;
+        //    mail.Subject = sub;
+        //    mail.Body = bod;
             
-            SmtpClient client = new SmtpClient();
-            client.Host = "smtp.gmail.com";
-            client.Credentials = new NetworkCredential(from.ToString(), "password");
-            client.Host = "smtp.gmail.com";
-            client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-            client.Port = 25;
-            client.EnableSsl = true;
-            client.Send(mail);
-            //return Ok(mail);
-        }
+        //    SmtpClient client = new SmtpClient();
+        //    client.Host = "smtp.gmail.com";
+        //    client.Credentials = new NetworkCredential(from.ToString(), "password");
+        //    client.Host = "smtp.gmail.com";
+        //    client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+        //    client.Port = 25;
+        //    client.EnableSsl = true;
+        //    client.Send(mail);
+        //}
 
         //protected override void Dispose(bool disposing)
         //{
