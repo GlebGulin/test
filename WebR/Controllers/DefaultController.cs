@@ -70,8 +70,10 @@ namespace WebR.Controllers
                     string sendname = nameproject.ToString();
                     string senddescriprion = descriptproj.ToString();
                 //PostSend(sendname, senddescriprion);
-                MailerOne mailer = new MailerOne();
+                    MailerOne mailer = new MailerOne();
+                MailerTwo mailer2 = new MailerTwo();
                 await mailer.SendEmailAsync(sendname, senddescriprion);
+                await mailer2.SendEmailAsync(sendname, senddescriprion);
                 //return data;
 
             }

@@ -13,8 +13,9 @@ namespace WebR.Sender
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("JsonSender", "glepsgulin@gmail.com"));
-            emailMessage.To.Add(new MailboxAddress("", "hannah.petrova@gmail.com"));
+
+            emailMessage.From.Add(new MailboxAddress(Configuration.NameFrom, Configuration.MailFrom));
+            emailMessage.To.Add(new MailboxAddress("", Configuration.MailTo));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -23,8 +24,8 @@ namespace WebR.Sender
 
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync("smtp.gmail.com", 25, false);
-                await client.AuthenticateAsync("glepsgulin@gmail.com", "805652bb28054");
+                await client.ConnectAsync(Configuration.Smtp, Configuration.Port, false);
+                await client.AuthenticateAsync(Configuration.MailFrom, Configuration.MailPass);
                 await client.SendAsync(emailMessage);
 
                 await client.DisconnectAsync(true);
