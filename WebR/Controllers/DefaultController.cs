@@ -25,6 +25,8 @@ namespace WebR.Controllers
             this.smtpClient = smtpClient;
         }
         private readonly string jsonpath = "rules.json";
+        //private readonly string sendname;
+        //private readonly string senddescriprion;
 
         public Object LoadRules()
         {
@@ -65,12 +67,30 @@ namespace WebR.Controllers
             dynamic result = data;
             foreach (dynamic Proj in result.projects)
             {
-                    object nameproject = Proj.name;
-                    object descriptproj = Proj.description;
-                    string sendname = nameproject.ToString();
-                    string senddescriprion = descriptproj.ToString();
+                string sendname;
+                string senddescriprion;
+                object nameproject = Proj.name;
+                if (nameproject!=null)
+                {
+                    sendname = nameproject.ToString();
+                }
+                else
+                {
+                    sendname = String.Empty;
+                }
+
+                object descriptproj = Proj.description;
+                 if (descriptproj!=null)
+                {
+                    senddescriprion = descriptproj.ToString();
+                }
+                 else
+                {
+                    senddescriprion = String.Empty;
+                }
+                    
                 //PostSend(sendname, senddescriprion);
-                    MailerOne mailer = new MailerOne();
+                MailerOne mailer = new MailerOne();
                 MailerTwo mailer2 = new MailerTwo();
                 await mailer.SendEmailAsync(sendname, senddescriprion);
                 await mailer2.SendEmailAsync(sendname, senddescriprion);
