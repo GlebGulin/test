@@ -8,17 +8,14 @@ using WebR.Models.Rules;
 
 namespace WebR
 {
-    public class Parser
+    public static class Parser
     {
-        //public Parser()
-        //{
-        //    object _result = r;
-        //}
-        private readonly string jsonpath = "rules.json";
-        //private readonly string jsonpath = "test.json";
-        public string result;
-        public Object LoadRules()
+       
+        private static readonly string jsonpath = "rules.json";
+        
+        public static Rules LoadRules()
         {
+            Rules r = new Rules();
             try
             {
                 string jsonconfiguration;
@@ -26,29 +23,16 @@ namespace WebR
                 {
                     jsonconfiguration = reader.ReadToEnd();
                 }
-                Rules r = JsonConvert.DeserializeObject<Rules>(jsonconfiguration);
-                //Test r = JsonConvert.DeserializeObject<Test>(jsonconfiguration);
-                //dynamic c = JsonConvert.DeserializeObject(jsonconfiguration);
-                dynamic c = JsonConvert.DeserializeObject(jsonconfiguration);
-                //r.rules.ToArray();
-                c.rules.ToArray();
-                r.rules.ToArray();
+                r = JsonConvert.DeserializeObject<Rules>(jsonconfiguration);
 
-                r.ToString();
-                return r;
-
-
-
-
-
+                
             }
-            catch (Exception ex)
+            catch (FileNotFoundException)
             {
-                return false;
+                r = null;
 
             }
-
-
+            return r;
         }
 
     }

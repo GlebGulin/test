@@ -12,6 +12,8 @@ using Newtonsoft.Json.Linq;
 using System.Net.Mime;
 using WebR.Models.Rules;
 using WebR.Sender;
+using Telegram.Bot;
+using WebR.Sender.Telegram;
 //using System.Net.Mail.SmtpClient;
 
 namespace WebR.Controllers
@@ -25,8 +27,7 @@ namespace WebR.Controllers
             this.smtpClient = smtpClient;
         }
         private readonly string jsonpath = "rules.json";
-        //private readonly string sendname;
-        //private readonly string senddescriprion;
+       
 
         public Object LoadRules()
         {
@@ -43,9 +44,9 @@ namespace WebR.Controllers
 
 
             }
-            catch (Exception ex)
+            catch (FileNotFoundException)
             {
-                return false;
+                return "Not found rules.json";
 
             }
         }
@@ -61,8 +62,7 @@ namespace WebR.Controllers
         public async Task Post([FromBody] JObject data)
 
         {
-            Parser parsrul = new Parser();
-            object resultrul = parsrul.LoadRules();
+            Rules myrule = Parser.LoadRules() as Rules;
             string jsonstring = data.ToString();
             dynamic result = data;
             foreach (dynamic Proj in result.projects)
@@ -88,55 +88,48 @@ namespace WebR.Controllers
                 {
                     senddescriprion = String.Empty;
                 }
-                    
-                //PostSend(sendname, senddescriprion);
-                MailerOne mailer = new MailerOne();
-                MailerTwo mailer2 = new MailerTwo();
-                await mailer.SendEmailAsync(sendname, senddescriprion);
-                await mailer2.SendEmailAsync(sendname, senddescriprion);
-                //return data;
+
+                
+                if (myrule != null)
+                {
+                    foreach (Rule Item in myrule.rules)
+                    {
+                        foreach (Effect item in Item.effects)
+                        {
+                            string type = item.type.ToString();
+                            if (type == "telegram")
+                            {
+                                string id = item.placeholders.id.ToString();
+                                string name = item.placeholders.name.ToString();
+                                if (id != null && name != null)
+                                {
+                                    await TelegramerOne.telegram.SendTextMessageAsync(Configuration.NameChanelOne, sendname );
+                                    await TelegramerTwo.telegram2.SendTextMessageAsync(Configuration.NameChanelTwo, sendname );
+                                }
+                            }
+                            else if (type == "smtp")
+                            {
+                                
+                                string name = item.placeholders.name.ToString();
+                                string description = item.placeholders.description.ToString();
+                                if (name!=null && description!=null)
+                                {
+                                    MailerOne mailer = new MailerOne();
+                                    MailerTwo mailer2 = new MailerTwo();
+                                    await mailer.SendEmailAsync(sendname, "Project name:"+ sendname  +"</br>"+ senddescriprion);
+                                    await mailer2.SendEmailAsync(sendname, "Project name:"+ sendname  + "</br>"+senddescriprion);
+
+                                }
+                             }
+                        }
+                    }
+                }
 
             }
-            //return data;
+           
         }
 
-        //public async Task<IActionResult> PostSend(string sub, string bod)
-        //{
-        //    await this.smtpClient.SendMailAsync(new MailMessage(
-        //        from: "glepsgulin@gmail.com",
-        //        to: "hannah.petrova@gmail.com",
-        //        subject: sub,
-        //        body: bod
-        //        ));
-
-        //    return Ok("OK");
-
-        //}
-        //public void PostSend(string sub, string bod)
-        //{
-        //    MailAddress to = new MailAddress("hannah.petrova@gmail.com");
-            
-        //    MailAddress from = new MailAddress("glepsgulin@gmail.com");
-        //    MailMessage mail = new MailMessage(from, to);
-            
-        //    mail.Subject = sub;
-        //    mail.Body = bod;
-            
-        //    SmtpClient client = new SmtpClient();
-        //    client.Host = "smtp.gmail.com";
-        //    client.Credentials = new NetworkCredential(from.ToString(), "password");
-        //    client.Host = "smtp.gmail.com";
-        //    client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-        //    client.Port = 25;
-        //    client.EnableSsl = true;
-        //    client.Send(mail);
-        //}
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    this.smtpClient.Dispose();
-        //    base.Dispose(disposing);
-        //}
+      
     }
    
 }
