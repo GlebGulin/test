@@ -13376,21 +13376,17 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Глеб\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Глеб\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\LearnGleb\\ASP.NET\\ServiceTick\\WebRules\\WebR\\WebR.csproj",
+      "projectUniqueName": "G:\\LearnProgramming\\Execution\\Core\\usingNewtonsoft\\WebR\\WebR.csproj",
       "projectName": "WebR",
-      "projectPath": "D:\\LearnGleb\\ASP.NET\\ServiceTick\\WebRules\\WebR\\WebR.csproj",
+      "projectPath": "G:\\LearnProgramming\\Execution\\Core\\usingNewtonsoft\\WebR\\WebR.csproj",
       "packagesPath": "C:\\Users\\Глеб\\.nuget\\packages\\",
-      "outputPath": "D:\\LearnGleb\\ASP.NET\\ServiceTick\\WebRules\\WebR\\obj\\",
+      "outputPath": "G:\\LearnProgramming\\Execution\\Core\\usingNewtonsoft\\WebR\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\Глеб\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
