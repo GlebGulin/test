@@ -1,5 +1,3 @@
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
 
 FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-sac2016 AS base
 WORKDIR /app
@@ -7,17 +5,24 @@ EXPOSE 80
 EXPOSE 443
 
 FROM microsoft/dotnet:2.1-sdk-nanoserver-sac2016 AS build
-WORKDIR /src
-COPY ["WebR/WebR.csproj", "WebR/"]
+ARG BUILDCONFIG=RELEASE
+ARG VERSION=1.0.0
+
+COPY WebR.csproj /build/
+
 RUN dotnet restore "WebR/WebR.csproj"
-COPY . .
-WORKDIR "/src/WebR"
-RUN dotnet build "WebR.csproj" -c Release -o /app
 
-FROM build AS publish
-RUN dotnet publish "WebR.csproj" -c Release -o /app
-
-FROM base AS final
+COPY . ./build/
+WORKDIR /build/
+RUN dotnet publish ./"WebR.csproj" -c $BUILDCONFIG -o out /p:Version=$VERSION
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=build /build/out .
 ENTRYPOINT ["dotnet", "WebR.dll"]
+
+COPY ["WebR/WebR.csproj", "WebR/"]
+
+
+
+
+

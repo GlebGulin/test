@@ -24,9 +24,9 @@ namespace WebR
         /*Settings for TelegramBot*/
        
         public static string NameChanelOne { get; set; } = "@test_task";
-        public static string ApiKEY { get; set; } = "your key";
+        public static string ApiKEY { get; set; } = "975305099:AAErrElJHG6z0sVUksa64X0O5NnT2XUDnNk";
         public static string NameChanelTwo { get; set; } = "@test2_test";
-        public static string ApiKEY2 { get; set; } = "your key";
+        public static string ApiKEY2 { get; set; } = "919193081:AAEhC_f9XgVCACGpn1bWxCRDrx3fXU3AXPs";
         
 
     }
